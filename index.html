@@ -69,11 +69,14 @@
                 return color(d.type);
             })
             .on("dblclick", function(d) {
-                window.open("https://www.crunchbase.com/organization/" + d.name);
+            	if (d.type == "Person") {
+                    window.open("https://www.crunchbase.com/person/" + d.name);
+            	} else {
+                    window.open("https://www.crunchbase.com/organization/" + d.name);
+            	}
             })
             .on("mouseenter", function(d) {
                 nodes.transition().attr("opacity", 0.3);
-                console.log(this);
                 var node = d3.select(this).classed("selected-node", true);
                 node.transition().attr("opacity", 1).attr("r", 9);
                 svg.insert("text", ".selected-node").text(d.name).attr("x", d.x).attr("y", d.y - 25).attr("class", "label");
